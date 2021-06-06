@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const dishRouter = require('./routes/dishRouter');
 const dishRouter1 = require('./routes/promoRouter');
-const dishRouter2 = require('./routes/leadersRouter');
+const dishRouter2 = require('./routes/leaderRouter');
 
 app.use('/dishes', dishRouter);
 app.use('/promotions', dishRouter1);
