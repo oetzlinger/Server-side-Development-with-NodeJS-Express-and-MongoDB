@@ -25,6 +25,7 @@ connect.then((db) => {
     console.log("Connected correctly to server");
 }, (err) => { console.log(err); });
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
