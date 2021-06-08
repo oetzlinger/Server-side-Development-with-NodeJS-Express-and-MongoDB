@@ -15,11 +15,15 @@ var passport = require('passport');
 var authenticate = require('./authenticate');
 var config = require('./config');
 
-const url = config.mongoUrl;
+
 var app = express();
+const url = config.mongoUrl;
+
 const mongoose = require('mongoose');
 
 const Dishes = require('./models/dishes');
+
+
 const connect = mongoose.connect(url);
 
 connect.then((db) => {
@@ -43,6 +47,7 @@ app.use(session({
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
