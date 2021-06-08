@@ -13,23 +13,25 @@ var session = require('express-session');
 var FileStore = require('session-file-store')(session);
 var passport = require('passport');
 var authenticate = require('./authenticate');
+var config = require('./config');
 
 
 var app = express();
-
+const url = config.mongoUrl;
 
 const mongoose = require('mongoose');
 
 const Dishes = require('./models/dishes');
 
-const url = 'mongodb://localhost:27017/conFusion';
+
 const connect = mongoose.connect(url);
 
 connect.then((db) => {
     console.log("Connected correctly to server");
 }, (err) => { console.log(err); });
 
-
+app.use(passport.initialize());
+app.use(passport.session());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -46,23 +48,6 @@ app.use(session({
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-function auth (req, res, next) {
-  console.log(req.user);
-
-  if (!req.user) {
-    var err = new Error('You are not authenticated!');
-    err.status = 403;
-    next(err);
-  }
-  else {
-        next();
-  }
-}
-
-app.use(auth);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
