@@ -5,41 +5,47 @@
   "options": {
     "validateUpsert": true
   },
+  "mixins": {
+    "TimeStamp": true
+  },
   "properties": {
     "name": {
       "type": "string",
-      "required": true
+      "required": true,
+      "default": ""
     },
     "description": {
       "type": "string",
-      "required": true
-    },
-    "category": {
-      "type": "string",
       "required": true,
-      "default": "image"
+      "default": ""
+    },
+    "designation": {
+      "type": "string",
+      "required": true
     },
     "image": {
       "type": "string",
       "required": true
     },
-    "label": {
-      "type": "string"
-    },
-    "price": {
+    "abbr": {
       "type": "string",
       "required": true,
-      "default": "0"
+      "default": ""
+    },
+    "featured": {
+      "type": "boolean",
+      "required": true,
+      "default": false
     }
   },
   "validations": [],
   "relations": {},
   "acls": [
     {
-      "accessType": "READ",
+      "accessType": "*",
       "principalType": "ROLE",
       "principalId": "$everyone",
-      "permission": "ALLOW"
+      "permission": "DENY"
     },
     {
       "accessType": "READ",
@@ -53,6 +59,12 @@
       "principalId": "admin",
       "permission": "ALLOW",
       "property": "create"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
     }
   ],
   "methods": {}
